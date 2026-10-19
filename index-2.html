@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La cofradía smashburguer</title>
+<meta name="description" content="Ranking de hamburgueserías votado por los amigos de la cofradía, con las crónicas de cada cena.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=IBM+Plex+Mono:wght@400;500&family=Work+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 64 64" role="img" aria-label="Smashburguer apilada">
+        <path d="M9 25a23 15 0 0 1 46 0z" style="fill:var(--accent)"/>
+        <rect x="6" y="28" width="52" height="6" rx="3" style="fill:var(--hot)"/>
+        <rect x="9" y="34" width="46" height="9" rx="4.5" style="fill:var(--ink)"/>
+        <path d="M11 43h42l-5 6-5-6-5 6-5-6-5 6-5-6-5 6z" style="fill:var(--accent)"/>
+        <path d="M9 52h46a0 0 0 0 1 0 0 8 8 0 0 1-8 7H17a8 8 0 0 1-8-7z" style="fill:var(--accent)"/>
+      </svg>
+      <h1><small>Hermandad de la plancha</small>La cofradía smashburguer</h1>
+    </div>
+    <p class="lede">Un grupo de amigos, una hamburguesería por cena y un ranking que se decide a votos. Cada cofrade cuenta cómo le fue y pone su nota.</p>
+    <div class="stats" id="stats"></div>
+    <nav class="jump" aria-label="Secciones">
+      <a href="#ranking" class="primary">Ranking</a>
+      <a href="#cronicas">Crónicas</a>
+      <a href="#cofrades">Los cofrades</a>
+      <a href="#reglamento">Reglamento</a>
+    </nav>
+  </header>
+
+  <section id="ranking" aria-labelledby="h-ranking">
+    <div class="sec-head">
+      <h2 id="h-ranking">Ranking</h2>
+      <p>Media de las notas de todos los cofrades, de 1 a 10. Si dos sitios empatan, manda el que tiene más votos.</p>
+    </div>
+    <div id="rankingList"></div>
+  </section>
+
+  <section id="cronicas" aria-labelledby="h-cronicas">
+    <div class="sec-head">
+      <h2 id="h-cronicas">Crónicas de las cenas</h2>
+      <p>Lo que pasó en cada mesa, de la más reciente a la más antigua.</p>
+    </div>
+    <div id="cronicasList"></div>
+  </section>
+
+  <section id="cofrades" aria-labelledby="h-cofrades">
+    <div class="sec-head">
+      <h2 id="h-cofrades">Los cofrades</h2>
+      <p>Quién forma parte de la hermandad.</p>
+    </div>
+    <figure class="group">
+      <img src="cofradia.jpg" alt="Seis amigos de la cofradía sentados a una mesa con la camiseta oficial, con hamburguesas y patatas delante" loading="lazy">
+      <figcaption>La cofradía con la camiseta oficial.</figcaption>
+    </figure>
+    <div id="rosterList"></div>
+  </section>
+
+  <section id="reglamento" class="rules" aria-labelledby="h-reglamento">
+    <h2 id="h-reglamento">Reglamento de la cofradía</h2>
+    <ul>
+      <li>Cada cofrade da una nota del 1 al 10 a cada hamburguesería que ha probado.</li>
+      <li>El ranking ordena por la media de las notas. Los sitios sin notas esperan debajo.</li>
+      <li>Para votar o añadir una cena, díselo al anfitrión de la cofradía.</li>
+    </ul>
+    <div class="scale">
+      <div><b>1 – 4</b>Costra blanda, pan que se rinde o salsa que sobra.</div>
+      <div><b>5 – 7</b>Smash correcto. Se come bien y se olvida pronto.</div>
+      <div><b>8 – 10</b>Costra crujiente, pan que aguanta y ganas de volver.</div>
+    </div>
+  </section>
+
+  <footer>La cofradía smashburguer · sin patrocinadores, solo plancha</footer>
+</div>
+
+<div id="lb" role="dialog" aria-modal="true" aria-label="Foto ampliada" hidden>
+  <img id="lbImg" alt="">
+  <p id="lbCap"></p>
+  <div class="lb-bar"><button type="button" id="lbClose">Cerrar</button></div>
+</div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
