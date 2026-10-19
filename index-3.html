@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La cofradía smashburguer</title>
+<meta name="description" content="Ranking de hamburgueserías votado por los amigos de la cofradía, con las crónicas de cada cena.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=IBM+Plex+Mono:wght@400;500&family=Work+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 64 64" role="img" aria-label="Smashburguer apilada">
+        <path d="M9 25a23 15 0 0 1 46 0z" style="fill:var(--accent)"/>
+        <rect x="6" y="28" width="52" height="6" rx="3" style="fill:var(--hot)"/>
+        <rect x="9" y="34" width="46" height="9" rx="4.5" style="fill:var(--ink)"/>
+        <path d="M11 43h42l-5 6-5-6-5 6-5-6-5 6-5-6-5 6z" style="fill:var(--accent)"/>
+        <path d="M9 52h46a0 0 0 0 1 0 0 8 8 0 0 1-8 7H17a8 8 0 0 1-8-7z" style="fill:var(--accent)"/>
+      </svg>
+      <h1><small>Hermandad de la plancha</small>La cofradía smashburguer</h1>
+    </div>
+    <p class="lede">Un grupo de amigos, una hamburguesería por cena y un ranking que se decide a votos. Cada cofrade cuenta cómo le fue y pone su nota.</p>
+    <div class="stats" id="stats" aria-live="polite"></div>
+    <nav class="jump" aria-label="Secciones">
+      <a href="#ranking">Ranking</a>
+      <a href="#cronicas">Crónicas</a>
+      <a href="#cofrades">Los cofrades</a>
+      <a href="#nueva" class="primary" id="navNueva" hidden>Registrar una cena</a>
+      <a href="#reglamento">Reglamento</a>
+    </nav>
+  </header>
+
+  <div class="banner" id="banner" hidden></div>
+
+  <section class="session" id="session" aria-label="Tu sesión"></section>
+
+  <section id="ranking" aria-labelledby="h-ranking">
+    <div class="sec-head">
+      <h2 id="h-ranking">Ranking</h2>
+      <p>Media de las notas de todos los cofrades, de 1 a 10. Si dos sitios empatan, manda el que tiene más votos.</p>
+    </div>
+    <div id="rankingList"><p class="loading">Cargando el ranking…</p></div>
+  </section>
+
+  <section id="cronicas" aria-labelledby="h-cronicas">
+    <div class="sec-head">
+      <h2 id="h-cronicas">Crónicas de las cenas</h2>
+      <p>Lo que pasó en cada mesa, de la más reciente a la más antigua. Los cofrades pueden comentar.</p>
+    </div>
+    <div id="cronicasList"></div>
+  </section>
+
+  <section id="cofrades" aria-labelledby="h-cofrades">
+    <div class="sec-head">
+      <h2 id="h-cofrades">Los cofrades</h2>
+      <p>Quién forma parte de la hermandad.</p>
+    </div>
+    <figure class="group">
+      <img src="cofradia.jpg" alt="Seis amigos de la cofradía sentados a una mesa con la camiseta oficial, con hamburguesas y patatas delante" loading="lazy">
+      <figcaption>La cofradía con la camiseta oficial.</figcaption>
+    </figure>
+    <div id="codeBox" hidden></div>
+    <div id="rosterList"></div>
+    <form class="card" id="formCofrade" autocomplete="off" hidden>
+      <div class="field full"><p class="label" id="cf-title">Nuevo cofrade</p></div>
+      <div class="field full cf-photo">
+        <div class="cf-avatar" id="cf-avatar" aria-hidden="true"><span>?</span></div>
+        <div class="cf-photo-ctl">
+          <label for="cf-foto">Foto</label>
+          <input id="cf-foto" type="file" accept="image/*">
+          <button class="linkbtn" type="button" id="cf-quitar" hidden>Quitar foto</button>
+        </div>
+      </div>
+      <div class="field full">
+        <label for="cf-nombre">Nombre de cofrade</label>
+        <input id="cf-nombre" name="cfnombre" maxlength="40" required placeholder="Cómo le llaman en la mesa">
+      </div>
+      <div class="field full">
+        <label for="cf-desc">Descripción</label>
+        <textarea id="cf-desc" name="cfdesc" maxlength="200" style="min-height: 90px" placeholder="Una frase corta: su hamburguesa ideal, su manía, su lema…"></textarea>
+      </div>
+      <div class="form-foot">
+        <button class="btn" type="submit" id="cf-enviar">Añadir cofrade</button>
+        <button class="linkbtn" type="button" id="cf-cancel" hidden>Cancelar edición</button>
+      </div>
+    </form>
+  </section>
+
+  <section id="nueva" aria-labelledby="h-nueva" hidden>
+    <div class="sec-head">
+      <h2 id="h-nueva">Registrar una cena</h2>
+      <p id="nueva-sub">Añade la hamburguesería y cuenta cómo fue. Después podréis votarla todos.</p>
+    </div>
+    <form class="card" id="formCena" autocomplete="off">
+      <div class="field full">
+        <label for="f-nombre">Hamburguesería</label>
+        <input id="f-nombre" name="nombre" maxlength="80" required placeholder="Nombre del sitio">
+      </div>
+      <div class="field">
+        <label for="f-zona">Barrio o ciudad</label>
+        <input id="f-zona" name="zona" maxlength="80" placeholder="Dónde está">
+      </div>
+      <div class="field">
+        <label for="f-fecha">Fecha de la cena</label>
+        <input id="f-fecha" name="fecha" type="date" required>
+      </div>
+      <div class="field">
+        <label for="f-precio">Precio por cabeza (€)</label>
+        <input id="f-precio" name="precio" type="number" min="0" max="500" step="0.5" inputmode="decimal" placeholder="Opcional">
+      </div>
+      <div class="field full">
+        <label for="f-cronica">Crónica</label>
+        <textarea id="f-cronica" name="cronica" maxlength="3000" placeholder="La costra, el pan, la salsa, el servicio, la sobremesa…"></textarea>
+      </div>
+      <div class="field full" id="fotosField">
+        <label for="f-fotos">Fotos (hasta 6)</label>
+        <input id="f-fotos" type="file" accept="image/*" multiple>
+        <div class="previews" id="previews"></div>
+        <p class="hint">Se reducen solas antes de subirlas.</p>
+      </div>
+      <div class="form-foot">
+        <button class="btn" type="submit" id="f-enviar">Guardar cena</button>
+        <button class="linkbtn" type="button" id="f-cancel" hidden>Cancelar edición</button>
+        <span id="status" role="status"></span>
+      </div>
+    </form>
+  </section>
+
+  <section id="reglamento" class="rules" aria-labelledby="h-reglamento">
+    <h2 id="h-reglamento">Reglamento de la cofradía</h2>
+    <ul>
+      <li>Para votar, comentar o registrar cenas hay que entrar con tu código de cofrade.</li>
+      <li>Cada cofrade da una nota del 1 al 10 a cada hamburguesería. Puedes cambiarla cuando quieras; si pulsas la misma, la retiras.</li>
+      <li>El ranking ordena por la media. Los sitios sin votos esperan debajo.</li>
+    </ul>
+    <div class="scale">
+      <div><b>1 – 4</b>Costra blanda, pan que se rinde o salsa que sobra.</div>
+      <div><b>5 – 7</b>Smash correcto. Se come bien y se olvida pronto.</div>
+      <div><b>8 – 10</b>Costra crujiente, pan que aguanta y ganas de volver.</div>
+    </div>
+  </section>
+
+  <footer>La cofradía smashburguer · sin patrocinadores, solo plancha</footer>
+</div>
+
+<input type="file" id="sharedFile" accept="image/*" multiple hidden>
+<div id="lb" role="dialog" aria-modal="true" aria-label="Foto ampliada" hidden>
+  <img id="lbImg" alt="">
+  <p id="lbCap"></p>
+  <div class="lb-bar">
+    <button type="button" id="lbClose">Cerrar</button>
+    <button type="button" id="lbDel" hidden>Borrar foto</button>
+  </div>
+</div>
+<div id="toast" role="status" hidden></div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
